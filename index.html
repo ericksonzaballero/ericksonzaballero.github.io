@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Interactive AI-focused resume and portfolio of Erickson Del Rosario Zaballero — AI Solutions Engineer, Process Automation Specialist, and IT/Manufacturing Systems Professional." />
+  <meta name="theme-color" content="#060f1d" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Erickson Zaballero | AI Solutions, Automation and Systems Engineering" />
+  <meta property="og:description" content="Associate Engineer and IT systems veteran building AI-assisted workflow tools for manufacturing, data, and operations." />
+  <meta property="og:url" content="https://ericksonzaballero.github.io/" />
+  <meta property="og:image" content="https://ericksonzaballero.github.io/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2338bdf8'/%3E%3Ctext x='32' y='42' font-size='28' font-weight='800' text-anchor='middle' fill='%23fff' font-family='Arial'%3EEZ%3C/text%3E%3C/svg%3E" />
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <title>Erickson Zaballero | AI Solutions, Automation &amp; Systems Engineering</title>
   <style>
     :root{
@@ -71,15 +80,54 @@
 
     @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1!important;transform:none!important;transition:none!important}.btn,.card,.project{transition:none!important}}
     @media print{nav,.grid-bg,.cta,.theme-only{display:none!important}body{background:#fff;color:#111}.hero{min-height:auto;padding:20px 0}.profile-card,.card,.project,.date-panel,.experience-main,.step,.contact,.metric-box,.edu-card{box-shadow:none;background:#fff;border:1px solid #ccc}.gradient{color:#111}.reveal{opacity:1;transform:none}section{padding:24px 0}.project{min-height:auto}}
+    /* --- additions: motion, mobile menu, mobile polish --- */
+    html{-webkit-text-size-adjust:100%}
+    section[id]{scroll-margin-top:84px}
+    .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--primary),var(--secondary),var(--accent))}
+    .nav-links a.active{color:var(--primary)}
+    .menu-btn{display:none}
+    .metric-box strong{font-variant-numeric:tabular-nums}
+    .typed{margin:0 0 16px;min-height:1.7em;font-size:clamp(1rem,2.4vw,1.25rem);font-weight:700;color:var(--primary)}
+    .typed:after{content:"";display:inline-block;width:2px;height:1.1em;margin-left:3px;vertical-align:-.15em;background:var(--primary);animation:blink 1s steps(1) infinite}
+    @keyframes blink{50%{opacity:0}}
+    .reveal.show.card:hover{transform:translateY(-5px)}
+    .reveal.show.project:hover{transform:translateY(-3px)}
+    @media(hover:hover){
+      .card,.project{--mx:50%;--my:50%}
+      .card{position:relative;overflow:hidden}
+      .card:before,.project:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(360px circle at var(--mx) var(--my),rgba(56,189,248,.16),transparent 65%)}
+      .card:hover:before,.project:hover:before{opacity:1}
+    }
+    @media(max-width:900px){
+      .menu-btn{display:grid;place-items:center}
+      .icon-btn{width:44px;height:44px}
+      .nav-links{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;padding:6px 22px 14px;background:var(--bg);border-bottom:1px solid var(--line)}
+      .nav-links.open{display:flex}
+      .nav-links a{padding:15px 2px;font-size:1rem;border-bottom:1px solid var(--line)}
+      .nav-links a:last-child{border-bottom:0}
+    }
+    @media(max-width:640px){
+      section{padding:48px 0}
+      h1{font-size:clamp(2.25rem,10.5vw,3rem)}
+      .nav-inner{height:64px}
+      .icon-btn[aria-label="Print resume"]{display:none}
+      .metrics{grid-template-columns:1fr 1fr;gap:10px}
+      .metric-box{padding:16px 10px}
+      .metric-box strong{font-size:1.45rem}
+      .btn{width:100%;justify-content:center;overflow-wrap:anywhere}
+      .project,.profile-card,.date-panel,.experience-main{padding:20px}
+    }
+    @media print{.progress,.typed{display:none!important}}
   </style>
 </head>
 <body>
 <div class="grid-bg"></div>
+<div class="progress" id="prog"></div>
 <nav>
   <div class="wrap nav-inner">
     <a class="brand" href="#top"><span class="brand-mark">EZ</span><span>Erickson Zaballero</span></a>
-    <div class="nav-links"><a href="#expertise">Expertise</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a></div>
-    <div class="controls"><button class="icon-btn theme-only" id="themeBtn" aria-label="Toggle theme">☀</button><button class="icon-btn" onclick="window.print()" aria-label="Print resume">↧</button></div>
+    <div class="nav-links" id="navLinks"><a href="#expertise">Expertise</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a></div>
+    <div class="controls"><button class="icon-btn theme-only" id="themeBtn" aria-label="Toggle theme">☀</button><button class="icon-btn" onclick="window.print()" aria-label="Print resume">↧</button><button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">☰</button></div>
   </div>
 </nav>
 <main id="top">
@@ -87,6 +135,7 @@
     <div class="reveal">
       <div class="eyebrow"><span class="pulse"></span> AI Solutions &amp; Systems Engineering</div>
       <h1>Turning real problems into <span class="gradient">intelligent solutions.</span></h1>
+      <p class="typed" aria-hidden="true">Hands-on with <span id="typed"></span></p>
       <p class="hero-copy"><strong>Erickson Del Rosario Zaballero</strong> — Associate Engineer &amp; IT Systems veteran with 10+ years of international experience across Malaysia, Singapore, and the Philippines. Combining manufacturing failure analysis, enterprise IT infrastructure, SQL analytics, and AI-assisted development to streamline complex operations.</p>
       <div class="cta"><a class="btn primary" href="#projects">Explore AI Projects →</a><button class="btn" onclick="window.print()">Download / Print Resume</button></div>
       <div class="micro"><span><b>●</b> Perai, Penang, Malaysia</span><span><b>●</b> Open to AI &amp; Automation roles</span><span><b>●</b> 10+ Yrs Tech &amp; Ops Experience</span></div>
@@ -105,10 +154,10 @@
 
   <div class="wrap">
     <div class="metrics reveal">
-      <div class="metric-box"><strong>10+ Yrs</strong><span>Cross-Border Tech &amp; Ops Experience</span></div>
-      <div class="metric-box"><strong>3 Countries</strong><span>Malaysia • Singapore • Philippines</span></div>
-      <div class="metric-box"><strong>700+</strong><span>Enterprise Endpoints Supported</span></div>
-      <div class="metric-box"><strong>6+ Tools</strong><span>AI &amp; Automation Prototypes Built</span></div>
+      <div class="metric-box"><strong data-to="10" data-suf="+ Yrs">10+ Yrs</strong><span>Cross-Border Tech &amp; Ops Experience</span></div>
+      <div class="metric-box"><strong data-to="3" data-suf=" Countries">3 Countries</strong><span>Malaysia • Singapore • Philippines</span></div>
+      <div class="metric-box"><strong data-to="700" data-suf="+">700+</strong><span>Enterprise Endpoints Supported</span></div>
+      <div class="metric-box"><strong data-to="6" data-suf="+ Tools">6+ Tools</strong><span>AI &amp; Automation Prototypes Built</span></div>
     </div>
   </div>
 
@@ -150,6 +199,16 @@
       </div>
 
       <div class="experience reveal">
+        <div class="date-panel"><b>Apr 2021 – Sep 2025</b><p>Consulting role</p><div class="stack"><span class="chip">IT Advisory</span><span class="chip">Disaster Recovery</span><span class="chip">Linux / Postfix</span></div></div>
+        <div class="experience-main"><h3>IT Consultant</h3><div class="company">Powermax Consulting Group Inc.</div><ul>
+          <li>Audited corporate IT equipment and advised on repair, upgrade, and lifecycle planning to maximize ROI and operational efficiency.</li>
+          <li>Architected and optimized enterprise Linux mail servers (Postfix/CentOS) and guided website hosting, security, and migration strategy across HostGator, SiteGround, and WordPress.</li>
+          <li>Authored data backup, disaster recovery, and business continuity plans protecting critical data across all departments.</li>
+          <li>Served as senior technical liaison for clients and stakeholders: root-cause analysis of complex faults, staff training programs, and live video and sound system design for large corporate events.</li>
+        </ul></div>
+      </div>
+
+      <div class="experience reveal">
         <div class="date-panel"><b>Jun 2012 – Mar 2020</b><p>Ortigas Center, Pasig City, PH</p><div class="stack"><span class="chip">IT Leadership</span><span class="chip">Linux / CentOS</span><span class="chip">WordPress</span></div></div>
         <div class="experience-main"><h3>IT Supervisor</h3><div class="company">Powermax Consulting Group Inc.</div><ul>
           <li>Led end-to-end IT infrastructure operations, hardware/software diagnostics, preventative maintenance, system backups, and network reliability.</li>
@@ -159,8 +218,8 @@
       </div>
 
       <div class="experience reveal">
-        <div class="date-panel"><b>Jun 2011 – May 2012</b><p>Makati City, Philippines</p><div class="stack"><span class="chip">700+ Endpoints</span><span class="chip">Cisco LAN</span><span class="chip">Helpdesk Lvl 2</span></div></div>
-        <div class="experience-main"><h3>IT Support / Computer Technician Level 2</h3><div class="company">D.M. Consunji Inc. (DMCI)</div><ul>
+        <div class="date-panel"><b>Jun 2011 – May 2012</b><p>Makati City, Philippines</p><div class="stack"><span class="chip">700+ Endpoints</span><span class="chip">Cisco LAN</span><span class="chip">Helpdesk</span></div></div>
+        <div class="experience-main"><h3>IT Support / Computer Tech</h3><div class="company">D.M. Consunji Inc. (DMCI)</div><ul>
           <li>Maintained and supported 700+ desktop and laptop computers (HP, Dell, Lenovo, Sony), performing hardware repairs, OS deployments, and upgrades.</li>
           <li>Resolved escalated trouble tickets, configured basic Cisco routers/switches, managed IP/CCTV camera systems, and conducted user software training.</li>
         </ul></div>
@@ -168,7 +227,7 @@
 
       <div class="experience reveal">
         <div class="date-panel"><b>Jul 2008 – May 2010</b><p>Singapore</p><div class="stack"><span class="chip">Hardware Repair</span><span class="chip">RMA Logistics</span><span class="chip">Client Support</span></div></div>
-        <div class="experience-main"><h3>IT Technical Support</h3><div class="company">Inforcom Technologies Pte. Ltd.</div><ul>
+        <div class="experience-main"><h3>IT Support / Sales</h3><div class="company">Inforcom Technologies Pte. Ltd.</div><ul>
           <li>Diagnosed and repaired personal computers, laptops, monitors, and peripherals while executing on-site installations and network setups.</li>
           <li>Coordinated vendor RMA and component repair logistics while providing technical consultations and product recommendations to clients.</li>
         </ul></div>
@@ -200,23 +259,105 @@
 </main>
 <footer><div class="wrap">© 2026 Erickson Del Rosario Zaballero • Built as an interactive single-file portfolio using AI-assisted development.</div></footer>
 <script>
-  const root=document.documentElement,btn=document.getElementById('themeBtn');
-  function setTheme(t){root.dataset.theme=t;btn.textContent=t==='dark'?'☀':'☾';localStorage.setItem('ez-theme',t)}
-  setTheme(localStorage.getItem('ez-theme')||'dark');
-  btn.addEventListener('click',()=>setTheme(root.dataset.theme==='dark'?'light':'dark'));
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      } else {
-        entry.target.classList.remove('show');
-      }
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeBtn');
+  var RM=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function save(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function setTheme(t){
+    root.dataset.theme=t;btn.textContent=t==='dark'?'☀':'☾';save('ez-theme',t);
+    var m=document.querySelector('meta[name=theme-color]');if(m)m.content=t==='dark'?'#060f1d':'#eef5ff';
+  }
+  setTheme(load('ez-theme')||'dark');
+  btn.addEventListener('click',function(){setTheme(root.dataset.theme==='dark'?'light':'dark')});
+
+  /* reveal once, short stagger */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      e.target.classList.add('show');io.unobserve(e.target);
+      setTimeout(function(){e.target.style.transitionDelay=''},1100);
     });
-  }, {
-    threshold: 0.14,
-    rootMargin: '-6% 0px -6% 0px'
+  },{threshold:.12,rootMargin:'0px 0px -5% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){
+    var i=Array.prototype.indexOf.call(el.parentElement.children,el);
+    el.style.transitionDelay=Math.min(i,5)*70+'ms';
+    io.observe(el);
   });
-  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+  /* mobile menu */
+  try{
+    var mb=document.getElementById('menuBtn'),nl=document.getElementById('navLinks');
+    var shut=function(){nl.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.textContent='☰'};
+    mb.addEventListener('click',function(){var o=nl.classList.toggle('open');mb.setAttribute('aria-expanded',String(o));mb.textContent=o?'✕':'☰'});
+    nl.addEventListener('click',function(e){if(e.target.closest('a'))shut()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')shut()});
+  }catch(e){}
+
+  /* metric count-up */
+  try{
+    var co=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        co.unobserve(e.target);
+        var el=e.target,to=+el.dataset.to,suf=el.dataset.suf,t0=performance.now();
+        (function step(t){
+          var p=Math.min((t-t0)/1200,1);
+          el.textContent=Math.round(to*(1-Math.pow(1-p,3)))+suf;
+          if(p<1)requestAnimationFrame(step);
+        })(t0);
+      });
+    },{threshold:.6});
+    if(!RM)document.querySelectorAll('[data-to]').forEach(function(el){el.textContent='0'+el.dataset.suf;co.observe(el)});
+  }catch(e){}
+
+  /* progress bar + active nav link */
+  try{
+    var bar=document.getElementById('prog');
+    var links=Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+    var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+    var ticking=false;
+    var update=function(){
+      ticking=false;
+      var max=document.documentElement.scrollHeight-window.innerHeight;
+      bar.style.width=(max>0?window.scrollY/max*100:0)+'%';
+      var cur=-1;
+      secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<window.innerHeight*.4)cur=i});
+      links.forEach(function(a,i){a.classList.toggle('active',i===cur)});
+    };
+    window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});
+    update();
+  }catch(e){}
+
+  /* typed roles in hero */
+  try{
+    var ty=document.getElementById('typed'),ws=['failure analysis','workflow automation','SQL and yield analytics','AI-assisted tools'];
+    if(RM){ty.textContent=ws[0]}
+    else{
+      var w=0,c=0,del=false;
+      (function tick(){
+        var s=ws[w],ms=del?35:65;
+        c+=del?-1:1;ty.textContent=s.slice(0,c);
+        if(!del&&c===s.length){del=true;ms=1400}
+        else if(del&&c===0){del=false;w=(w+1)%ws.length;ms=300}
+        setTimeout(tick,ms);
+      })();
+    }
+  }catch(e){}
+
+  /* card spotlight, mouse devices only */
+  try{
+    if(window.matchMedia('(hover:hover)').matches){
+      document.querySelectorAll('.card,.project').forEach(function(el){
+        el.addEventListener('pointermove',function(e){
+          var r=el.getBoundingClientRect();
+          el.style.setProperty('--mx',(e.clientX-r.left)+'px');
+          el.style.setProperty('--my',(e.clientY-r.top)+'px');
+        });
+      });
+    }
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
